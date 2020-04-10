@@ -1,0 +1,27 @@
+version: '3.7'
+services:
+    redis-server:
+        # use image to build
+        image: redis:6.0-rc3-buster
+        # volumes:
+          #- redis-data:/data
+        volumes:
+          - type: bind
+            source: /Users/atsangarides/Documents/GitHub/docker-flask-travis-awseb/data
+            target: /data
+
+    app:
+        # use dockerfile in current directory to build
+        build: .
+        depends_on:
+          - redis-server
+        ports:
+            - "5000:5000"
+        restart: unless-stopped
+        environment:
+          - DEBUG=True
+          - REDIS_HOST=redis-server
+        volumes:
+          - .:/app
+#volumes:
+#  redis-data:
