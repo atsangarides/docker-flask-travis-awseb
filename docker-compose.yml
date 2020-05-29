@@ -6,9 +6,10 @@ services:
         # volumes:
           #- redis-data:/data
         volumes:
-          - type: bind
-            source: /Users/atsangarides/Documents/GitHub/docker-flask-travis-awseb/data
-            target: /data
+          - ./data:/data
+#          - type: bind
+#            source: ./data
+#            target: /data
 
     app:
         # use dockerfile in current directory to build
